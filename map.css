@@ -1,0 +1,53 @@
+    .state {
+        stroke: #a9a9a9;
+        stroke-width: 1;
+    }
+    .state:hover{
+        fill-opacity:0.2;
+    }
+    #tooltip {   
+        position: absolute;
+        width: auto;
+
+        text-align: center;           
+        padding: 4px;
+        margin: 10px;
+
+        color: white;
+        opacity: 0; 
+
+        font: 12px sans-serif;        
+
+        background:rgba(0,0,0,0.9);
+        border:1px solid grey;   
+        border-radius: 2px;           
+        pointer-events: none;  
+    }
+    #tooltip h4{
+        margin:0;
+        font-size:14px;
+    }
+
+    #tooltip table{
+        table-layout:fixed;
+    }
+    #tooltip tr td{
+        padding:0;
+        margin:0;
+    }
+    #tooltip tr td:nth-child(1){
+        width:50px;
+    }
+    #tooltip tr td:nth-child(2){
+        text-align:center;
+    }
+
+    .q0-9 { fill: #F0F0FF; background-color: #F0F0FF;  }
+    .q1-9 { fill: #D1D1FF; background-color: #D1D1FF; }
+    .q2-9 { fill: #B2B2FF; background-color: #B2B2FF;}
+    .q3-9 { fill: #A3A3FF; background-color: #A3A3FF;}
+    .q4-9 { fill: #9494FF; background-color: #9494FF;}
+    .q5-9 { fill: #8585FF; background-color: #8585FF;}
+    .q6-9 { fill: #7575FF; background-color: #7575FF;}
+    .q7-9 { fill: #5252CC; background-color: #5252CC;}
+    .q8-9 { fill: #4747B2; background-color: #4747B2;}
