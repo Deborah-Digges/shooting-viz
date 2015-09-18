@@ -4,10 +4,12 @@
     var LOCATION = "location";
     var WOUNDED = "wounded";
     var KILLED = "killed";
-    var quantize ;
-    function tooltipHtml(stateName, id) { 
+    var quantize;
+    var text;
+
+    function tooltipHtml(stateName, id, dataObject) { 
         return "<h4>" + stateName + "</h4>" +
-        "<table><tr> Wounded: " + wounded[id] + "</tr></table";
+        "<table><tr> Affected: " + dataObject[id] + "</tr></table";
     }
     
     function mouseOver(d){
@@ -16,7 +18,7 @@
         .duration(100)
         .style("opacity", 0.9);
 
-        d3.select("#tooltip").html(tooltipHtml(d.n, d.id))  
+        d3.select("#tooltip").html(tooltipHtml(d.n, d.id, mouseOver.dataObject))  
         .style("left", (d3.event.pageX) + "px")     
         .style("top", (d3.event.pageY) + "px");
     }
@@ -25,9 +27,10 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function draw(id, dataObject){
+    function draw(id, dataObject){  
         var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
         var max = Math.max.apply( null, arr);
+        mouseOver.dataObject = dataObject;
 
         quantize = d3.scale.quantize()
                    .domain([0, max])
@@ -63,18 +66,27 @@
         .attr("class", function(d){return d;}); 
         //the data objects are the fill colors
 
-        legend
-        .append('text')
+        if(!text){
+            text = legend
+            .append('text');
+        }
+
+        text
         .attr("x", "25px") 
         .attr("y", function(d, i) {
         return i * 15;
         })
+        .transition()
+        .duration(100)
+        .style("opacity", 0)
+        .transition().duration(500)
+        .style("opacity", 1)
         .attr("dy", "0.8em") 
         .text(function(d,i) {
-        var extent = quantize.invertExtent(d);
-        
-        var format = d3.format("0.0f");
-        return format(+extent[0]) + " - " + format(+extent[1]);
+            var extent = quantize.invertExtent(d);
+            
+            var format = d3.format("0.0f");
+            return format(+extent[0]) + " - " + format(+extent[1]);
         });
     }
 
@@ -97,10 +109,24 @@
         /* draw states on id #statesvg */   
         draw("#statesvg", wounded);
         drawLegend();
-
     }
     
-    d3.json("out.json", function(error, data){
-        processData(data);
-    });
+    function init() {
+        d3.select("#type").on('change', function(){
+            if(this.value === "killed") {
+                draw("#statesvg", killed);
+                drawLegend();
+            }
+            else if(this.value == "wounded") {
+                draw("#statesvg", wounded);
+                drawLegend();
+            }
+        });
+
+        d3.json("out.json", function(error, data){
+            processData(data);
+        });
+    }
+
+    init();
 })();

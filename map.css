@@ -41,6 +41,10 @@
     #tooltip tr td:nth-child(2){
         text-align:center;
     }
+    select {
+        padding: 10px;
+        margin: 10px;
+    }
 
     .q0-9 { fill: #F0F0FF; background-color: #F0F0FF;  }
     .q1-9 { fill: #D1D1FF; background-color: #D1D1FF; }
