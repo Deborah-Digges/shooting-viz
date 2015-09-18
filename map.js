@@ -111,14 +111,8 @@
     
     function init() {
         d3.select("#type").on('change', function(){
-            if(this.value === "killed") {
-                draw(killed);
+                draw(eval(this.value));
                 drawLegend();
-            }
-            else if(this.value == "wounded") {
-                draw(wounded);
-                drawLegend();
-            }
         });
 
         d3.json("out.json", function(error, data){
