@@ -107,7 +107,7 @@
             killed[shooting_location] += parseInt(shooting[KILLED]);
         };
         /* draw states on id #statesvg */   
-        draw("#statesvg", wounded);
+        draw("#statesvg", killed);
         drawLegend();
     }
     
