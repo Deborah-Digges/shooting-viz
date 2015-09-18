@@ -100,9 +100,6 @@
         for (var i = 0; i < shootings.length; i++) {
             shooting = shootings[i];
             shooting_location = shooting[LOCATION];
-            if(shooting_location == "LA") {
-                console.log(parseInt(shooting["wounded"]));
-            }
             wounded[shooting_location] += parseInt(shooting[WOUNDED]);
             killed[shooting_location] += parseInt(shooting[KILLED]);
         };
