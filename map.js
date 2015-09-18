@@ -28,14 +28,17 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function draw(dataObject){  
+    function setUpScale(dataObject) {
         var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
         var max = Math.max.apply( null, arr);
-        mouseOver.dataObject = dataObject;
 
         quantize = d3.scale.quantize()
                    .domain([0, max])
-                   .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));        
+                   .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
+    }
+
+    function drawMap(dataObject){
+        mouseOver.dataObject = dataObject;
 
         d3.select(id).selectAll(".state")
             .data(uStatePaths).enter()
@@ -91,6 +94,12 @@
         });
     }
 
+    function draw(dataObject) {
+        setUpScale(dataObject);  
+        drawMap(dataObject);
+        drawLegend();
+    }
+
     function processData(shootings) {
         for (var i = 0; i < uStatePaths.length; i++) {
             state_name = uStatePaths[i].id;
@@ -104,15 +113,12 @@
             wounded[shooting_location] += parseInt(shooting[WOUNDED]);
             killed[shooting_location] += parseInt(shooting[KILLED]);
         };
-         
         draw(killed);
-        drawLegend();
     }
     
     function init() {
         d3.select("#type").on('change', function(){
                 draw(eval(this.value));
-                drawLegend();
         });
 
         d3.json("out.json", function(error, data){
