@@ -6,6 +6,7 @@
     var KILLED = "killed";
     var quantize;
     var text;
+    var id = "#statesvg";
 
     function tooltipHtml(stateName, id, dataObject) { 
         return "<h4>" + stateName + "</h4>" +
@@ -27,7 +28,7 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function draw(id, dataObject){  
+    function draw(dataObject){  
         var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
         var max = Math.max.apply( null, arr);
         mouseOver.dataObject = dataObject;
@@ -103,19 +104,19 @@
             wounded[shooting_location] += parseInt(shooting[WOUNDED]);
             killed[shooting_location] += parseInt(shooting[KILLED]);
         };
-        /* draw states on id #statesvg */   
-        draw("#statesvg", killed);
+         
+        draw(killed);
         drawLegend();
     }
     
     function init() {
         d3.select("#type").on('change', function(){
             if(this.value === "killed") {
-                draw("#statesvg", killed);
+                draw(killed);
                 drawLegend();
             }
             else if(this.value == "wounded") {
-                draw("#statesvg", wounded);
+                draw(wounded);
                 drawLegend();
             }
         });
