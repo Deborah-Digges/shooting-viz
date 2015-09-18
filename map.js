@@ -4,10 +4,7 @@
     var LOCATION = "location";
     var WOUNDED = "wounded";
     var KILLED = "killed";
-    var quantize = d3.scale.quantize()
-                   .domain([0, 437])
-                   .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
-
+    var quantize ;
     function tooltipHtml(stateName, id) { 
         return "<h4>" + stateName + "</h4>" +
         "<table><tr> Wounded: " + wounded[id] + "</tr></table";
@@ -28,12 +25,21 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function draw(id){        
+    function draw(id, dataObject){
+        var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
+        var max = Math.max.apply( null, arr);
+
+        quantize = d3.scale.quantize()
+                   .domain([0, max])
+                   .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));        
+
         d3.select(id).selectAll(".state")
             .data(uStatePaths).enter()
             .append("path")
-            .attr("class", function(d){return "state " + quantize(wounded[d.id]);})
+
+            .attr("class", function(d){return "state " + quantize(dataObject[d.id]);})
             .attr("d", function(d){ return d.d;})
+
             .on("mouseover", mouseOver)
             .on("mouseout", mouseOut)
     }
@@ -82,12 +88,14 @@
         for (var i = 0; i < shootings.length; i++) {
             shooting = shootings[i];
             shooting_location = shooting[LOCATION];
-            wounded[shooting_location] += shooting[WOUNDED];
-            killed[shooting_location] += shooting[KILLED];
+            if(shooting_location == "LA") {
+                console.log(parseInt(shooting["wounded"]));
+            }
+            wounded[shooting_location] += parseInt(shooting[WOUNDED]);
+            killed[shooting_location] += parseInt(shooting[KILLED]);
         };
-
         /* draw states on id #statesvg */   
-        draw("#statesvg");
+        draw("#statesvg", wounded);
         drawLegend();
 
     }
