@@ -11,3 +11,5 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 2. It's difficult to compare values across states - make an accompanying horizontal bar chart(sorted)
 
+3. Allow exploring the values across the 3 years
+
