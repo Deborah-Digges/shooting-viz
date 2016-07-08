@@ -1,20 +1,34 @@
-From pymongo import MongoClient
+from pymongo import MongoClient
+from stateToCodeMapping import statesMapping
 
-states = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", 
-                  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
-                            "LS", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
-                                      "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
-                                                "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+## Importing into the DB
 
 client = MongoClient()
-db = client["shootings"]
-collection = db.shootingdata
+db = client["shooting-db"]
+collection = db.shootings
 cursor = collection.find()
 count = cursor.count()
+
+renameMapping = {
+    "# Injured": "wounded",
+    "# Killed": "killed",
+    "Incident Date": "date",
+    "State": "location"
+}
+
+for oldCol, newCol in renameMapping.iteritems():
+    collection.update_many({}, {'$rename': {oldCol: newCol}})
+
+# 5. Get latitude and long
+
+
+# Rename state name by code
 results = [res for res in cursor]
 
-
 for doc in results:    
-    location = doc["location"].split(",")[1].strip().upper()
-    doc["location"] = location
+    stateCode = statesMapping[doc["location"]]
+    if stateCode:
+        doc["location"] = stateCode
+    else:
+        print doc
     collection.save(doc)

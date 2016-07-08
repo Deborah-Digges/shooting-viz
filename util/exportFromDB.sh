@@ -1,0 +1,1 @@
+mongoexport --db=shooting-db --collection=shootings --fields=date,location,wounded,killed --type=json --out=out.json --jsonArray --pretty
