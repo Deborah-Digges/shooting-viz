@@ -2,8 +2,8 @@ from pymongo import MongoClient
 import pprint
 
 client = MongoClient()
-db = client["shootings"]
-collection = db.shootingdata
+db = client["shooting-db"]
+collection = db.shootings
 
 cursor = collection.find()
 count = cursor.count()

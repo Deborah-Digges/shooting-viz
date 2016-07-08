@@ -7,6 +7,7 @@
     var quantize;
     var text;
     var id = "#statesvg";
+    var maxBound = 500;
 
     function tooltipHtml(stateName, id, dataObject) { 
         return "<h4>" + stateName + "</h4>" +
@@ -29,11 +30,11 @@
     }
 
     function setUpScale(dataObject) {
-        var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
-        var max = Math.max.apply( null, arr);
+        // var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
+        // var max = Math.max.apply( null, arr);
 
         quantize = d3.scale.quantize()
-                   .domain([0, max])
+                   .domain([0, maxBound])
                    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
     }
 
@@ -44,6 +45,7 @@
             .data(uStatePaths).enter()
             .append("path")
 
+        d3.selectAll("path")
             .attr("class", function(d){return "state " + quantize(dataObject[d.id]);})
             .attr("d", function(d){ return d.d;})
 
@@ -80,11 +82,6 @@
         .attr("y", function(d, i) {
         return i * 15;
         })
-        .transition()
-        .duration(100)
-        .style("opacity", 0)
-        .transition().duration(500)
-        .style("opacity", 1)
         .attr("dy", "0.8em") 
         .text(function(d,i) {
             var extent = quantize.invertExtent(d);
