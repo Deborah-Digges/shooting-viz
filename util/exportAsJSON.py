@@ -13,6 +13,7 @@ count = cursor.count()
 
 results = [res for res in cursor]
 gunStats = {}
+million = 1000000
 
 
 # create the structure
@@ -34,12 +35,11 @@ for year in gunStats:
     for state in statePopulation:
         gunStats[year].setdefault(state, {"killed": 0, "wounded": 0})
 
-    # find the number of people killed/wounded per 1000
+    # find the number of people killed/wounded per million
     for state in gunStats[year]:
-        populationInMillions = statePopulation[state]/1000000
+        populationInMillions = statePopulation[state]/million
         gunStats[year][state]["killed"] = math.ceil(gunStats[year][state]["killed"]/populationInMillions)
         gunStats[year][state]["wounded"] = math.ceil(gunStats[year][state]["wounded"]/populationInMillions)
-
 
 
 # max value across all state totals
