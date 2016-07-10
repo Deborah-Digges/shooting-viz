@@ -1,7 +1,7 @@
+from __future__ import division
 from pymongo import MongoClient
 from stateToCodeMapping import statesMapping
-
-## Importing into the DB
+from population import statePopulation
 
 client = MongoClient()
 db = client["shooting-db"]
@@ -16,16 +16,15 @@ renameMapping = {
     "State": "location"
 }
 
+# Rename columns
 for oldCol, newCol in renameMapping.iteritems():
     collection.update_many({}, {'$rename': {oldCol: newCol}})
 
-# 5. Get latitude and long
 
-
-# Rename state name by code
 results = [res for res in cursor]
 
-for doc in results:    
+# replace state name with state code
+for doc in results:   
     stateCode = statesMapping[doc["location"]]
     if stateCode:
         doc["location"] = stateCode
