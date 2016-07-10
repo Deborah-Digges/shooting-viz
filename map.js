@@ -5,7 +5,6 @@
     var quantize;
     var text;
     var id = "#statesvg";
-    var maxBound = 50;
 
     var currentYear = 2013;
     var currentSelection = KILLED;
@@ -31,7 +30,10 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function setUpScale(bound) {
+    function setUpScale() {
+        var states = Object.keys(stateData[currentYear]);
+        states.map(function(element) { return stateData[currentYear][element][selection]});
+
         quantize = d3.scale.quantize()
                    .domain([0, bound])
                    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
