@@ -1,0 +1,3 @@
+sh util/1-importToDB.sh
+python util/2-update.py 
+sh util/3-exportFromDB.sh
