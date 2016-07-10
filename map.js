@@ -6,8 +6,8 @@
     var text;
     var id = "#statesvg";
 
-    var currentYear = 2013;
-    var currentSelection = KILLED;
+    var currentYear = 2013; 
+    var currentSelection = KILLED; 
     var stateData;
 
     function tooltipHtml(stateName, id, dataObject, selection) { 
@@ -32,14 +32,16 @@
 
     function setUpScale() {
         var states = Object.keys(stateData[currentYear]);
-        states.map(function(element) { return stateData[currentYear][element][selection]});
+        var max = Math.max.apply(null, states.map(function(element) { return stateData[currentYear][element][currentSelection]}));
 
         quantize = d3.scale.quantize()
-                   .domain([0, bound])
+                   .domain([0, max])
                    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
     }
 
     function drawMap(stateData, year, selection){
+        setUpScale();
+
         mouseOver.dataObject = stateData[year];
         mouseOver.selection = selection;
 
@@ -95,11 +97,13 @@
     }
     
     function init() {
-        setUpScale(maxBound); 
+
         d3.select("#type").on('change', function(){
+            currentSelection = this.value;
             drawMap(stateData, currentYear, this.value);
         });
         d3.select("#year").on('change', function(){
+            currentYear = this.value;
             drawMap(stateData, this.value, currentSelection);
         });
 
