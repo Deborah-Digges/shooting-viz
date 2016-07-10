@@ -1,17 +1,19 @@
 (function(){
-    var wounded = {};
-    var killed = {};
     var LOCATION = "location";
     var WOUNDED = "wounded";
     var KILLED = "killed";
     var quantize;
     var text;
     var id = "#statesvg";
-    var maxBound = 500;
+    var maxBound = 50;
 
-    function tooltipHtml(stateName, id, dataObject) { 
+    var currentYear = 2013;
+    var currentSelection = KILLED;
+    var stateData;
+
+    function tooltipHtml(stateName, id, dataObject, selection) { 
         return "<h4>" + stateName + "</h4>" +
-        "<table><tr> Affected: " + dataObject[id] + "</tr></table";
+        "<table><tr> Affected(per million): " + dataObject[id][selection] + "</tr></table";
     }
     
     function mouseOver(d){
@@ -20,7 +22,7 @@
         .duration(100)
         .style("opacity", 0.9);
 
-        d3.select("#tooltip").html(tooltipHtml(d.n, d.id, mouseOver.dataObject))  
+        d3.select("#tooltip").html(tooltipHtml(d.n, d.id, mouseOver.dataObject, mouseOver.selection))  
         .style("left", (d3.event.pageX) + "px")     
         .style("top", (d3.event.pageY) + "px");
     }
@@ -29,28 +31,27 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function setUpScale(dataObject) {
-        // var arr = Object.keys(dataObject).map(function (key) { return dataObject[key]; });
-        // var max = Math.max.apply( null, arr);
-
+    function setUpScale(bound) {
         quantize = d3.scale.quantize()
-                   .domain([0, maxBound])
+                   .domain([0, bound])
                    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
     }
 
-    function drawMap(dataObject){
-        mouseOver.dataObject = dataObject;
+    function drawMap(stateData, year, selection){
+        mouseOver.dataObject = stateData[year];
+        mouseOver.selection = selection;
 
         d3.select(id).selectAll(".state")
             .data(uStatePaths).enter()
             .append("path")
 
         d3.selectAll("path")
-            .attr("class", function(d){return "state " + quantize(dataObject[d.id]);})
+            .attr("class", function(d){console.log(d.id + " " + stateData[year][d.id][selection]);return "state " + quantize(stateData[year][d.id][selection]);})
             .attr("d", function(d){ return d.d;})
-
             .on("mouseover", mouseOver)
-            .on("mouseout", mouseOut)
+            .on("mouseout", mouseOut);
+
+        drawLegend();
     }
 
     function drawLegend() {
@@ -90,36 +91,19 @@
             return format(+extent[0]) + " - " + format(+extent[1]);
         });
     }
-
-    function draw(dataObject) {
-        setUpScale(dataObject);  
-        drawMap(dataObject);
-        drawLegend();
-    }
-
-    function processData(shootings) {
-        for (var i = 0; i < uStatePaths.length; i++) {
-            state_name = uStatePaths[i].id;
-            wounded[state_name] = 0;
-            killed[state_name] = 0;
-        };
-
-        for (var i = 0; i < shootings.length; i++) {
-            shooting = shootings[i];
-            shooting_location = shooting[LOCATION];
-            wounded[shooting_location] += parseInt(shooting[WOUNDED]);
-            killed[shooting_location] += parseInt(shooting[KILLED]);
-        };
-        draw(killed);
-    }
     
     function init() {
+        setUpScale(maxBound); 
         d3.select("#type").on('change', function(){
-                draw(eval(this.value));
+            drawMap(stateData, currentYear, this.value);
+        });
+        d3.select("#year").on('change', function(){
+            drawMap(stateData, this.value, currentSelection);
         });
 
         d3.json("out.json", function(error, data){
-            processData(data);
+            stateData = data;
+            drawMap(stateData, currentYear, currentSelection)
         });
     }
 
