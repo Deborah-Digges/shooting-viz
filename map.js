@@ -62,7 +62,11 @@
         var legend = d3.select("#legend").selectAll('g.legendEntry')
         .data(quantize.range())
         .enter()
-        .append('g');
+        .append('g')
+        .attr("transform", "translate(700, 15)");
+
+        legend.append("text")
+        .text("Affected per million")
 
         legend
         .append('rect')
