@@ -28,6 +28,10 @@
         font-size:14px;
     }
 
+    h1 {
+        display: inline;
+    }
+
     #tooltip table{
         table-layout:fixed;
     }

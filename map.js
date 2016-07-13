@@ -77,7 +77,7 @@
         .attr("transform", "translate(700, 15)");
 
         legend.append("text")
-        .text("Affected per million")
+        .text("Affected per million");
 
         legend
         .append('rect')

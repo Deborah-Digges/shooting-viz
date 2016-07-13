@@ -7,23 +7,28 @@
     </head>
     <body>
         <h1>Mass Shootings in the US from 2013-2016</h1>
-        <h6>Data Source: <a href="http://www.gunviolencearchive.org/reports/mass-shooting">Shooting Tracker</a></h6>
-        <select id="type">
-            <option value="killed">Killed</option>
-            <option value="wounded">Wounded</option>
-        </select>
-        <select id="year">
-            <option value="2013">2013</option>
-            <option value="2014">2014</option>
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-        </select>
+        
+
+        <div>
+            <select id="type">
+                <option value="killed">Killed</option>
+                <option value="wounded">Wounded</option>
+            </select>
+            <select id="year">
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+            </select>
+            <span>Data Source: <a href="http://www.gunviolencearchive.org/reports/mass-shooting">Shooting Tracker</a></span>
+        </div>
         <div id="tooltip"></div><!-- div to hold tooltip. -->
         <svg width="1060" height="600" id="statesvg"><svg id="legend"></svg></svg> <!-- svg to hold the map. -->
-        
+        <svg width="300" height="600" id="barchart"></svg>
 
         <script src="https://d3js.org/d3.v3.min.js"></script>
         <script type="text/javascript" src="states.js"></script>
         <script src="map.js"></script>
+        
     </body>
 </html>
