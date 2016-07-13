@@ -30,9 +30,21 @@
         d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
     }
 
-    function setUpScale() {
-        var states = Object.keys(stateData[currentYear]);
-        var max = Math.max.apply(null, states.map(function(element) { return stateData[currentYear][element][currentSelection]}));
+    function setUpScale(data) {
+        var max = 0;
+        for(year in data){
+            for(state in data[year]) {
+                if(data[year] && data[year][state]) {
+                    wounded = data[year][state][KILLED]; 
+                    killed = data[year][state][WOUNDED]; 
+                    thisMax = Math.max.apply(null, [killed, wounded]); 
+                     
+                    if(thisMax > max) {
+                        max = thisMax;
+                    } 
+                }
+            } 
+        }
 
         quantize = d3.scale.quantize()
                    .domain([0, max])
@@ -40,7 +52,6 @@
     }
 
     function drawMap(stateData, year, selection){
-        setUpScale();
 
         mouseOver.dataObject = stateData[year];
         mouseOver.selection = selection;
@@ -113,6 +124,7 @@
 
         d3.json("out.json", function(error, data){
             stateData = data;
+            setUpScale(data);
             drawMap(stateData, currentYear, currentSelection)
         });
     }
