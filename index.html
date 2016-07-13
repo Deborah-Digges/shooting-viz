@@ -3,11 +3,12 @@
     <head>
         <title>US shootings</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" type="text/css" href="map.css"></link>
     </head>
+
     <body>
-        <h1>Mass Shootings in the US from 2013-2016</h1>
-        
+        <h1>Mass Shootings in the US from 2013-2016</h1>  
 
         <div>
             <select id="type">
@@ -23,8 +24,8 @@
             <span>Data Source: <a href="http://www.gunviolencearchive.org/reports/mass-shooting">Shooting Tracker</a></span>
         </div>
         <div id="tooltip"></div><!-- div to hold tooltip. -->
-        <svg width="1060" height="600" id="statesvg"><svg id="legend"></svg></svg> <!-- svg to hold the map. -->
-        <svg width="300" height="600" id="barchart"></svg>
+        <svg id="statesvg"><svg id="legend"></svg></svg> <!-- svg to hold the map. -->
+        <svg id="barchart"></svg>
 
         <script src="https://d3js.org/d3.v3.min.js"></script>
         <script type="text/javascript" src="states.js"></script>

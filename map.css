@@ -49,6 +49,35 @@
         padding: 10px;
         margin: 10px;
     }
+    body #statesvg {
+        width: 70%;
+        height: 85%;
+    }
+
+    body #barchart {
+        width: 25%;
+        height: 85%;
+    }
+    html, body {
+        height: 100%; 
+        width: 100%; 
+        margin: 0; 
+    }
+
+    #barchart rect {
+        fill: steelblue;
+    }
+
+    .axis text {
+        font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
 
     .q0-9 { fill: #fcfbfd; background-color: #fcfbfd;  }
     .q1-9 { fill: #efedf5; background-color: #efedf5; }
