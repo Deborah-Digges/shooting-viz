@@ -22,7 +22,7 @@
     var text;
     var currentSelection = KILLED; 
     var stateData;
-    var barHeight = 20;
+    var barHeight;
     var margin = {top: 20, right: 30, bottom: 30, left: 40};
 
     /* 
@@ -30,6 +30,7 @@
     */
     var quantize;
     var barScale;
+    var yScale;
 
 
     function tooltipHtml(stateName, id, dataObject, selection) { 
@@ -47,10 +48,21 @@
         d3.select("#tooltip").html(tooltipHtml(d.n, d.id, mouseOver.dataObject, mouseOver.selection))  
         .style("left", (d3.event.pageX) + "px")     
         .style("top", (d3.event.pageY) + "px");
+
+        d3.select("#" + d.id)
+        .transition()
+        .duration(100)
+        .style("opacity", 0.4);
     }
         
-    function mouseOut(){
-        d3.select("#tooltip").transition().duration(500).style("opacity", 0);      
+    function mouseOut(d){
+        d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+
+        d3.select("#" + d.id)
+        .transition()
+        .duration(100)
+        .style("opacity", 1);
+
     }
 
     function setUpScale(data) {
@@ -73,9 +85,15 @@
 
         // Set up the scale for the bar chart
         var width = d3.select(containerId).node().width.baseVal.value;
+        var height = d3.select(containerId).node().height.baseVal.value;
+
         barScale = d3.scale.linear()
                 .domain([0, max])
                 .range([0, width - margin.left - margin.right]);
+
+        yScale = d3.scale.ordinal()
+                .domain(d3.range(uStatePaths.length))
+                .rangeBands([0, height - margin.top - margin.bottom]);
 
         // Set up the color scale
         quantize = d3.scale.quantize()
@@ -113,6 +131,7 @@
         var width = container.node().width.baseVal.value;
         var height = container.node().height.baseVal.value;
 
+        barHeight = Math.floor((height - margin.top - margin.bottom)/51.0)
         /*
             Chart Element within the container
         */
@@ -131,18 +150,29 @@
         barChart.append("g")
         .attr("class", "x axis")
         .call(xAxis);
+
+
+        barChart.append("text")      // text label for the x axis
+        .attr("transform", "translate(" + ((width - margin.left - margin.right )/ 2) + " ," + margin.top * 1.2 + ")")
+        .text("Affected per million");
+
+        var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
+
+        barChart.append("g")
+        .attr("class", "x axis")
+        .call(yAxis)
+        .selectAll("text").remove();
     }
 
-    function drawBarChart(stateData, year, selection) {
+    function drawBarChart(data, year, selection) {
         var bars = d3.select(chartId)
         .selectAll(".bar");
 
-        var sortedData = d3.entries(stateData[year])
+        var sortedData = d3.entries(data[year])
                 .sort(function(first, second)
-                    { return second[VALUE][selection] - first[VALUE][selection];
-                    });
-
-        console.log(sortedData);
+                    { return second[VALUE][selection] - first[VALUE][selection]; });
 
         
         // Enter Selection
@@ -152,13 +182,13 @@
         .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
         .append("rect")
 
-
         // Update attributes for the enter and update selections        
         d3.select(chartId)
         .selectAll("rect")
         .data(sortedData)
         .attr("height", barHeight - 1)
-        .attr("width", function(d) { console.log(barScale(+d[VALUE][selection]));return barScale(+d[VALUE][selection]);});
+        .attr("width", function(d) { return barScale(+d[VALUE][selection]);})
+        .attr("id", function(d) { return d[KEY]; });
 
 
     }
@@ -205,9 +235,9 @@
         });
     }
     
-    function draw(stateData, currentYear, currentSelection) {
-        drawMap(stateData, currentYear, currentSelection);
-        drawBarChart(stateData, currentYear, currentSelection);
+    function draw(data, year, selection) {
+        drawMap(data, year, selection);
+        drawBarChart(data, year, selection);
     }
 
     function init() {
