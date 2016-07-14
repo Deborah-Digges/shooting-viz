@@ -64,8 +64,8 @@
         margin: 0; 
     }
 
-    #barchart rect {
-        fill: steelblue;
+    #chart rect {
+        fill: #72879d;
     }
 
     .axis text {
