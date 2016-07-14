@@ -1,13 +1,23 @@
 (function(){
+    /*
+        Constants
+    */
     var LOCATION = "location";
     var WOUNDED = "wounded";
     var KILLED = "killed";
     var VALUE = "value";
     var KEY = "key";
 
+    /*
+        IDs
+    */
     var mapId = "#statesvg";
-    var barchartId = "#barchart";
+    var containerId = "#chartcontainer";
+    var chartId = "#chart";
 
+    /*
+        Global Data
+    */
     var currentYear = 2013; 
     var text;
     var currentSelection = KILLED; 
@@ -27,6 +37,7 @@
         "<table><tr> Affected(per million): " + dataObject[id][selection] + "</tr></table";
     }
     
+
     function mouseOver(d){
         d3.select("#tooltip")
         .transition()
@@ -61,10 +72,10 @@
         }
 
         // Set up the scale for the bar chart
-        var width = d3.select(barchartId).node().width.baseVal.value;
+        var width = d3.select(containerId).node().width.baseVal.value;
         barScale = d3.scale.linear()
                 .domain([0, max])
-                .range([0, width - 10]);
+                .range([0, width - margin.left - margin.right]);
 
         // Set up the color scale
         quantize = d3.scale.quantize()
@@ -72,73 +83,82 @@
                    .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));  
     }
 
+
     function drawMap(stateData, year, selection){
+        // Enter selection
+        d3.select(mapId)
+        .selectAll(".state")
+        .data(uStatePaths)
+        .enter()
+        .append("path")
 
         mouseOver.dataObject = stateData[year];
         mouseOver.selection = selection;
 
-        d3.select(mapId).selectAll(".state")
-            .data(uStatePaths).enter()
-            .append("path")
-
-        d3.selectAll("path")
-            .attr("class", function(d){console.log(d.id + " " + stateData[year][d.id][selection]);return "state " + quantize(stateData[year][d.id][selection]);})
-            .attr("d", function(d){ return d.d;})
-            .on("mouseover", mouseOver)
-            .on("mouseout", mouseOut);
-
+        // Update attributes for the enter and update selection
+        d3.select(mapId)
+        .selectAll("path")
+        .attr("class", function(d){return "state " + quantize(stateData[year][d.id][selection]);})
+        .attr("d", function(d){ return d.d;})
+        .on("mouseover", mouseOver)
+        .on("mouseout", mouseOut);
         drawLegend();
     }
 
-    function drawBarChart(stateData, currentYear, currentSelection) {
-        var chartElement = d3.select(barchartId);
-        var width = chartElement.node().width.baseVal.value;
-        var height = chartElement.node().height.baseVal.value;
+    function setupBarChart(){
+        /*
+         Container properties 
+        */
+        var container = d3.select(containerId);
+        var width = container.node().width.baseVal.value;
+        var height = container.node().height.baseVal.value;
 
-
-        chartElement
+        /*
+            Chart Element within the container
+        */
+        var barChart = container
         .append("g")
-        .attr("class", "chart")
+        .attr("id", "chart")
+        .attr("width", width - margin.left - margin.right)
+        .attr("height", height - margin.top - margin.bottom)
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         
 
         var xAxis = d3.svg.axis()
-            .scale(barScale)
-            .orient("top");
+        .scale(barScale)
+        .orient("top");
 
-        chartElement.append("g")
+        barChart.append("g")
         .attr("class", "x axis")
         .call(xAxis);
+    }
 
-        var chart = d3.select(barchartId)
+    function drawBarChart(stateData, year, selection) {
+        var bars = d3.select(chartId)
         .selectAll(".bar");
 
-        var sortedData = d3.entries(stateData[currentYear])
+        var sortedData = d3.entries(stateData[year])
                 .sort(function(first, second)
-                    { console.log("HERE");return second[VALUE][currentSelection] - first[VALUE][currentSelection];
+                    { return second[VALUE][selection] - first[VALUE][selection];
                     });
 
         console.log(sortedData);
 
-        /*
-            Enter Selection
-        */
-        enterSelection = chart.data(sortedData)
+        
+        // Enter Selection
+        enterSelection = bars.data(sortedData)
         .enter()
         .append("g")
         .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
         .append("rect")
-        .attr("height", barHeight - 1)
-        .attr("width", function(d) { return barScale(+d[VALUE][currentSelection]);});
 
-        /*
-            Update Selection
-        */
-        chart.data(sortedData)
-        .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
-        .append("rect")
+
+        // Update attributes for the enter and update selections        
+        d3.select(chartId)
+        .selectAll("rect")
+        .data(sortedData)
         .attr("height", barHeight - 1)
-        .attr("width", function(d) { return barScale(+d[VALUE][currentSelection]);});
+        .attr("width", function(d) { console.log(barScale(+d[VALUE][selection]));return barScale(+d[VALUE][selection]);});
 
 
     }
@@ -204,6 +224,7 @@
         d3.json("out.json", function(error, data){
             stateData = data;
             setUpScale(stateData);
+            setupBarChart();
             draw(stateData, currentYear, currentSelection);
         });
     }
