@@ -23,4 +23,6 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 ## Resources
 1. Data source: http://www.shootingtracker.com
+2. Mike Bostock's [Let's Make a Bar Chart](https://bost.ocks.org/mike/bar/)
+3. [D3 collections](https://github.com/d3/d3-collection)
 
