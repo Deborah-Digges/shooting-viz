@@ -28,10 +28,6 @@
         font-size:14px;
     }
 
-    h1 {
-        display: inline;
-    }
-
     #tooltip table{
         table-layout:fixed;
     }
@@ -77,6 +73,16 @@
         fill: none;
         stroke: #000;
         shape-rendering: crispEdges;
+    }
+
+    #citation {
+        float: right;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    h2 {
+        text-align: center;
     }
 
     .q0-9 { fill: #fcfbfd; background-color: #fcfbfd;  }
