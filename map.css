@@ -85,6 +85,13 @@
         text-align: center;
     }
 
+    select {
+        position: relative;
+        left: 48%;
+        color: white;
+        background-color: black;
+    }
+
     .q0-9 { fill: #fcfbfd; background-color: #fcfbfd;  }
     .q1-9 { fill: #efedf5; background-color: #efedf5; }
     .q2-9 { fill: #dadaeb; background-color: #dadaeb;}
