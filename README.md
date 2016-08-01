@@ -43,7 +43,7 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 ## Visualization before Feedback
 
-![Visualization before Feedback][old.gif]
+![Visualization before Feedback](old.gif)
 
 - Not easy to compare values across years because of changing scales
 - Not easy to compare values across states without bar chart
