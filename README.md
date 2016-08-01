@@ -41,3 +41,14 @@ http://deborah-digges.github.io/shooting-viz/index.html
 2. Mike Bostock's [Let's Make a Bar Chart](https://bost.ocks.org/mike/bar/)
 3. [D3 collections](https://github.com/d3/d3-collection)
 
+## Visualization before Feedback
+
+![Visualization before Feedback][old.gif]
+
+- Not easy to compare values across years because of changing scales
+- Not easy to compare values across states without bar chart
+- Incorrect heading
+- No Link to data source
+
+
+
