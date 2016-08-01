@@ -88,8 +88,8 @@
     select {
         position: relative;
         left: 48%;
-        color: white;
-        background-color: black;
+/*        color: white;
+        background-color: black;*/
     }
 
     .zero { fill: #ffffff; background-color: #ffffff;}
