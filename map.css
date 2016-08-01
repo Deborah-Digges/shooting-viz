@@ -92,12 +92,12 @@
         background-color: black;
     }
 
-    .q0-9 { fill: #fcfbfd; background-color: #fcfbfd;  }
-    .q1-9 { fill: #efedf5; background-color: #efedf5; }
-    .q2-9 { fill: #dadaeb; background-color: #dadaeb;}
-    .q3-9 { fill: #bcbddc; background-color: #bcbddc;}
-    .q4-9 { fill: #9e9ac8; background-color: #9e9ac8;}
-    .q5-9 { fill: #807dba; background-color: #807dba;}
-    .q6-9 { fill: #6a51a3; background-color: #6a51a3;}
-    .q7-9 { fill: #54278f; background-color: #54278f;}
-    .q8-9 { fill: #3f007d; background-color: #3f007d;}
+    .zero { fill: #ffffff; background-color: #ffffff;}
+    .q0-8 { fill: #efedf5; background-color: #efedf5;}
+    .q1-8 { fill: #dadaeb; background-color: #dadaeb;}
+    .q2-8 { fill: #bcbddc; background-color: #bcbddc;}
+    .q3-8 { fill: #9e9ac8; background-color: #9e9ac8;}
+    .q4-8 { fill: #807dba; background-color: #807dba;}
+    .q5-8 { fill: #6a51a3; background-color: #6a51a3;}
+    .q6-8 { fill: #54278f; background-color: #54278f;}
+    .q7-8 { fill: #3f007d; background-color: #3f007d;}

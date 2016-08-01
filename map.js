@@ -99,9 +99,9 @@
 
         // Set up the color scale
         quantize = d3.scale.quantize()
-            .domain([0, max])
-            .range(d3.range(9).map(function (i) { 
-                return "q" + i + "-9";
+            .domain([1, max])
+            .range(d3.range(8).map(function (i) {
+                return "q" + i + "-8";
             }));
     }
 
@@ -121,6 +121,9 @@
         d3.select(mapId)
             .selectAll("path")
             .attr("class", function (d) {
+                if (stateData[year][d.id][selection] == 0) {
+                    return "state zero";
+                }
                 return "state " + quantize(stateData[year][d.id][selection]);
             })
             .attr("d", function (d) { 
@@ -204,8 +207,9 @@
     }
 
     function drawLegend() {
+
         var legend = d3.select("#legend").selectAll("g.legendEntry")
-            .data(quantize.range())
+            .data(["zero"].concat(quantize.range()))
             .enter()
             .append("g")
             .attr("transform", "translate(700, 15)");
@@ -240,8 +244,11 @@
             })
             .attr("dy", "0.8em")
             .text(function (d,i) {
-                var extent = quantize.invertExtent(d);
+                if (d == "zero") {
+                    return "0";
+                }
 
+                var extent = quantize.invertExtent(d);
                 var format = d3.format("0.0f");
                 return format(+extent[0]) + " - " + format(+extent[1]);
             });

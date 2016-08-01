@@ -22,7 +22,7 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 &#9745; Allow exploring the values across the 3 years
 
-&#128504; Encode 0 properly to show states where there are no shootings. Set the first color only for value 0 (now it is for 0-5), and if the value is 1 and more choose the next color.
+&#9745; Encode 0 properly to show states where there are no shootings. Set the first color only for value 0 (now it is for 0-5), and if the value is 1 and more choose the next color.
 
 &#128504; pack a lot of more information by using JavaScript pop-ups on click or hover
 
