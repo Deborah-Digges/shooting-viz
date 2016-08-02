@@ -24,18 +24,17 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 &#9745; Encode 0 properly to show states where there are no shootings. Set the first color only for value 0 (now it is for 0-5), and if the value is 1 and more choose the next color.
 
-&#128504; pack a lot of more information by using JavaScript pop-ups on click or hover
+&#9745; A single scale is probably better
 
-&#128504; A single scale is probably better, but  can show the information by year for each state in a pop-up - that makes it more useful because one can see how it is changing.  Right now, it is very difficult to visualize the change in a particular state over the years
+&#9745; when we see bar presentation we cannot focus the mouse and understand, what particular state has this value. The only way to check it is to find it on the map. Implement state highlighting when the viewer focus on the particular bar, or, at least, show tooltip with the state name.
+
+&#128504; pack a lot of more information by using JavaScript pop-ups on click or hover.  can show the information by year for each state in a pop-up - that makes it more useful because one can see how it is changing.  Right now, it is very difficult to visualize the change in a particular state over the years
 
 &#128504; Your legends could use some refinement - you can reduce the number of shades (I think there are too many) - 3 should be enough (representing low, average, high, based on median and quartiles) - or maybe 4 or 5 at most
 
 &#128504; Explore the chart by yourself and find interesting outcomes, highlight these outcomes on the project page, include your findings in README file
 
 &#128504; create two different legends for killing and wounded.
-
-&#128504; when we see bar presentation we cannot focus the mouse and understand, what particular state has this value. The only way to check it is to find it on the map. Implement state highlighting when the viewer focus on the particular bar, or, at least, show tooltip with the state name.
-
 ## Resources
 1. Data source: http://www.shootingtracker.com
 2. Mike Bostock's [Let's Make a Bar Chart](https://bost.ocks.org/mike/bar/)
