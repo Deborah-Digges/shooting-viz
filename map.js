@@ -47,10 +47,11 @@
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY) + "px");
 
-        d3.select("#" + d.id + "_state")
-            .transition()
-            .duration(100)
-            .style("opacity", 0.4);
+        // Hightlight the bar
+        changeOpacity("#" + d.id, 0.4, 100);
+
+        // Highlight the state
+        changeOpacity("#" + d.id + "_state", 0.4, 100);
     }
     
     function mouseOut(d) {
@@ -59,11 +60,19 @@
             .duration(500)
             .style("opacity", 0);
 
-        d3.select("#" + d.id + "_state")
-            .transition()
-            .duration(100)
-            .style("opacity", 1);
+        // Un-highlight the bar
+        changeOpacity("#" + d.id, 1, 100);
 
+        // Unhightlight the state
+        changeOpacity("#" + d.id + "_state", 1, 100);
+    }
+
+    function changeOpacity(elementId, opacity, duration) {
+        console.log(elementId);
+        d3.select(elementId)
+            .transition()
+            .duration(duration)
+            .style("opacity", opacity);
     }
 
     function setUpScale(data) {
