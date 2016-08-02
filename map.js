@@ -47,7 +47,7 @@
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY) + "px");
 
-        d3.select("#" + d.id)
+        d3.select("#" + d.id + "_state")
             .transition()
             .duration(100)
             .style("opacity", 0.4);
@@ -59,7 +59,7 @@
             .duration(500)
             .style("opacity", 0);
 
-        d3.select("#" + d.id)
+        d3.select("#" + d.id + "_state")
             .transition()
             .duration(100)
             .style("opacity", 1);
@@ -128,6 +128,9 @@
             })
             .attr("d", function (d) { 
                 return d.d;
+            })
+            .attr("id", function (d) {
+                return d.id + "_state";
             })
             .on("mouseover", mouseOver)
             .on("mouseout", mouseOut);
@@ -201,7 +204,20 @@
             .data(sortedData)
             .attr("height", barHeight - 1)
             .attr("width", function (d) { return barScale(+d[VALUE][selection]);})
-            .attr("id", function (d) { return d[KEY]; });
+            .attr("id", function (d) { return d[KEY]; })
+            .on("mouseover", function (d) {
+                
+                var stateData = uStatePaths.filter(function (value) {
+                    return value.id == d[KEY];
+                })[0];
+                mouseOver(stateData);
+            })
+            .on("mouseout", function (d) {
+                var stateData = uStatePaths.filter(function (value) {
+                    return value.id == d[KEY];
+                })[0];
+                mouseOut(stateData);
+            });
 
 
     }
