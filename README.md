@@ -50,4 +50,12 @@ http://deborah-digges.github.io/shooting-viz/index.html
 - No Link to data source
 
 
+## Outcomes of the visualization
 
+The viewer should be able to infer the following:
+
+1. Washington D.C. was greatly affected in 2013(perhaps because of the [Washington Navy Yard Shooting](https://en.wikipedia.org/wiki/Washington_Navy_Yard_shooting))
+2. Washington D.C. also has a large number of wounded people by Mass Shooting in the year 2014
+3. Overall, Washington and Louisiana seem to be most affected over the years by mass shooting
+
+Despite being the headquarters of multiple federal law enforcement agencies, Washington D.C eventually became known as the ["murder capital" of the United States](https://en.wikipedia.org/wiki/Crime_in_Washington,_D.C.). 
