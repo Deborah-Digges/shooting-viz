@@ -4,6 +4,7 @@
 An infographic showing the impact of mass shootings in the US over the last 3 years. It uses the data from: http://www.shootingtracker.com
 
 ## Design
+
 It shows a chloropleth map of the US and allows a user to explore the number of people affected(killed/wounded) by mass shootings over 4 years. Hovering over a state shows the number in million affected in that state for the selection under consideration and also highlights a bar on an accompanying bar chart. The purpose of the bar chart is to show the rank of the selected state among all states for that year and selection.
 
 - A Chloropleth was chosen as the primary visualization as it easy to observe the values across states in it
@@ -32,9 +33,8 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 &#128504; Your legends could use some refinement - you can reduce the number of shades (I think there are too many) - 3 should be enough (representing low, average, high, based on median and quartiles) - or maybe 4 or 5 at most
 
-&#128504; Explore the chart by yourself and find interesting outcomes, highlight these outcomes on the project page, include your findings in README file
+&#9745; Explore the chart by yourself and find interesting outcomes, highlight these outcomes on the project page, include your findings in README file
 
-&#128504; create two different legends for killing and wounded.
 ## Resources
 1. Data source: http://www.shootingtracker.com
 2. Mike Bostock's [Let's Make a Bar Chart](https://bost.ocks.org/mike/bar/)

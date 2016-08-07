@@ -1,4 +1,5 @@
-(function() {
+(function () {
+    "use strict";
     /*
         Constants
     */
@@ -34,7 +35,7 @@
 
     function tooltipHtml(stateName, id, dataObject, selection) {
         return "<h4>" + stateName + "</h4>" +
-        "<table><tr> Affected(per million): " + dataObject[id][selection] + "</tr></table";
+                "<table><tr> Affected(per million): " + dataObject[id][selection] + "</tr></table";
     }
 
     function mouseOver(d) {
@@ -53,7 +54,7 @@
         // Highlight the state
         changeOpacity("#" + d.id + "_state", 0.4, 100);
     }
-    
+
     function mouseOut(d) {
         d3.select("#tooltip")
             .transition()
@@ -91,7 +92,7 @@
                         max = thisMax;
                     }
                 }
-            } 
+            }
         }
 
         // Set up the scale for the bar chart
@@ -130,12 +131,12 @@
         d3.select(mapId)
             .selectAll("path")
             .attr("class", function (d) {
-                if (stateData[year][d.id][selection] == 0) {
+                if (stateData[year][d.id][selection] === 0) {
                     return "state zero";
                 }
                 return "state " + quantize(stateData[year][d.id][selection]);
             })
-            .attr("d", function (d) { 
+            .attr("d", function (d) {
                 return d.d;
             })
             .attr("id", function (d) {
@@ -165,7 +166,6 @@
             .attr("width", width - margin.left - margin.right)
             .attr("height", height - margin.top - margin.bottom)
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        
 
         var xAxis = d3.svg.axis()
             .scale(barScale)
@@ -177,7 +177,7 @@
 
 
         barChart.append("text")      // text label for the x axis
-            .attr("transform", "translate(" + ((width - margin.left - margin.right) /  2) + " ," + margin.top * 1.2 + ")")
+            .attr("transform", "translate(" + ((width - margin.left - margin.right) / 2) + " ," + margin.top * 1.2 + ")")
             .text("Affected per million");
 
         var yAxis = d3.svg.axis()
@@ -194,36 +194,40 @@
         var bars = d3.select(chartId).selectAll(".bar");
 
         var sortedData = d3.entries(data[year])
-            .sort(function (first, second) { 
-                return second[VALUE][selection] - first[VALUE][selection]; 
+            .sort(function (first, second) {
+                return second[VALUE][selection] - first[VALUE][selection];
             });
 
         // Enter Selection
         enterSelection = bars.data(sortedData)
             .enter()
             .append("g")
-            .attr("transform", function (d, i) { 
-                return "translate(0," + i * barHeight + ")"; 
+            .attr("transform", function (d, i) {
+                return "translate(0," + i * barHeight + ")";
             })
             .append("rect");
 
-        // Update attributes for the enter and update selections      
+        // Update attributes for the enter and update selections  
         d3.select(chartId)
             .selectAll("rect")
             .data(sortedData)
             .attr("height", barHeight - 1)
-            .attr("width", function (d) { return barScale(+d[VALUE][selection]);})
-            .attr("id", function (d) { return d[KEY]; })
+            .attr("width", function (d) {
+                return barScale(+d[VALUE][selection]);
+            })
+            .attr("id", function (d) {
+                return d[KEY];
+            })
             .on("mouseover", function (d) {
-                
+
                 var stateData = uStatePaths.filter(function (value) {
-                    return value.id == d[KEY];
+                    return value.id === d[KEY];
                 })[0];
                 mouseOver(stateData);
             })
             .on("mouseout", function (d) {
                 var stateData = uStatePaths.filter(function (value) {
-                    return value.id == d[KEY];
+                    return value.id === d[KEY];
                 })[0];
                 mouseOut(stateData);
             });
@@ -269,7 +273,7 @@
             })
             .attr("dy", "0.8em")
             .text(function (d,i) {
-                if (d == "zero") {
+                if (d === "zero") {
                     return "0";
                 }
 
