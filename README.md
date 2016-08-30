@@ -55,6 +55,9 @@ http://deborah-digges.github.io/shooting-viz/index.html
 - No Link to data source
 - Not easy ot find the state which has the highest or lowest crime rate for a given year
 
+## Final Visualization
+![Final Visualization](final.gif)
+
 ## Outcomes of the visualization
 
 The viewer should be able to infer the following:

@@ -98,6 +98,9 @@
         font-size: 100px;
     }
 
+    #desc {
+        text-align: center;
+    }
     .zero { fill: #ffffff; background-color: #ffffff;}
     .q0-8 { fill: #efedf5; background-color: #efedf5;}
     .q1-8 { fill: #dadaeb; background-color: #dadaeb;}
