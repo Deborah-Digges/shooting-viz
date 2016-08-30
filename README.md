@@ -17,6 +17,7 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 ## Feedback
 
+### Person 1
 &#9745; States with higher population may have a higher crime rate. Avoid confounding of the results by finding the per capita crime rate for each state
 
 &#9745; It's difficult to compare values across states - make an accompanying horizontal bar chart(sorted)
@@ -25,13 +26,17 @@ http://deborah-digges.github.io/shooting-viz/index.html
 
 &#9745; Encode 0 properly to show states where there are no shootings. Set the first color only for value 0 (now it is for 0-5), and if the value is 1 and more choose the next color.
 
+### Person 2
 &#9745; A single scale is probably better
 
-&#9745; when we see bar presentation we cannot focus the mouse and understand, what particular state has this value. The only way to check it is to find it on the map. Implement state highlighting when the viewer focus on the particular bar, or, at least, show tooltip with the state name.
+&#9745; Add a proper title and the source of the data
 
 &#9745; pack a lot of more information by using JavaScript pop-ups on click or hover.  can show the information by year for each state in a pop-up - that makes it more useful because one can see how it is changing.  Right now, it is very difficult to visualize the change in a particular state over the years
 
 &#128504; Your legends could use some refinement - you can reduce the number of shades (I think there are too many) - 3 should be enough (representing low, average, high, based on median and quartiles) - or maybe 4 or 5 at most
+
+### Person 3
+&#9745; when we see bar presentation we cannot focus the mouse and understand, what particular state has this value. The only way to check it is to find it on the map. Implement state highlighting when the viewer focus on the particular bar, or, at least, show tooltip with the state name.
 
 &#9745; Explore the chart by yourself and find interesting outcomes, highlight these outcomes on the project page, include your findings in README file
 
