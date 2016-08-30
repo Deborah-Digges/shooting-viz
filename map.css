@@ -92,6 +92,12 @@
         background-color: black;*/
     }
 
+    #float-message {
+        position: absolute;
+        margin-left: 50%;
+        font-size: 100px;
+    }
+
     .zero { fill: #ffffff; background-color: #ffffff;}
     .q0-8 { fill: #efedf5; background-color: #efedf5;}
     .q1-8 { fill: #dadaeb; background-color: #dadaeb;}

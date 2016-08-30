@@ -14,6 +14,7 @@
     var mapId = "#statesvg";
     var containerId = "#chartcontainer";
     var chartId = "#chart";
+    var flashMessageId = "#float-message";
 
     /*
         Global Data
@@ -24,6 +25,8 @@
     var stateData;
     var barHeight;
     var margin = {top: 20, right: 30, bottom: 30, left: 40};
+    var safeStates = ["NE", "VT", "IA", "MT"];
+    var dangerousStates = ["LA", "DC", "DE", "KS"]
 
     /*
         Scales
@@ -69,7 +72,6 @@
     }
 
     function changeOpacity(elementId, opacity, duration) {
-        console.log(elementId);
         d3.select(elementId)
             .transition()
             .duration(duration)
@@ -283,9 +285,68 @@
             });
     }
 
+    function hideMessage(id, next) {
+        d3.select(id)
+          .transition()
+          .duration(3000)
+          .style("opacity", 0)
+          .each("end", next);
+    }
+
+    function showMessage(id, message) {
+        d3.select(id)
+        .style("opacity", 1)
+        .html(message);
+    }
+
+    function flashMessage(id, message, next) {
+        showMessage(id, message)
+        hideMessage(id, next);
+    }
+
     function draw(data, year, selection) {
         drawMap(data, year, selection);
         drawBarChart(data, year, selection);
+        
+    }
+
+    function showHideStates(states, color, next) {
+        var safes = d3.selectAll(".state").filter(function(d) {return states.indexOf(d.id) != -1;});
+        var oldFill = safes.style("fill");
+
+        safes.transition()
+            .duration(2000)
+            .style("fill", color)
+            .each("end", function() {
+                safes.transition()
+                    .duration(3000)
+                    .style("fill", oldFill)
+                    .each("end", next);
+            });
+            
+    }
+
+    function showAnimation() {
+        var showHideDangerousStates = function(next) {
+            d3.select(flashMessageId).html("");
+            showHideStates(dangerousStates, "firebrick", next);
+        };
+
+        var showDangerMessage = function() { 
+            flashMessage(flashMessageId, "Or Has it been in the line of fire?", showHideDangerousStates);
+        };
+
+        var showHideSafeStates = function(next) {
+            d3.select(flashMessageId).html("");
+
+            showHideStates(safeStates, "cornflowerblue", next);
+        };
+
+        var showSafeMessage = function() { 
+            flashMessage(flashMessageId, "Is Your State Safe?", function() {showHideSafeStates(showDangerMessage);});
+        };
+
+        flashMessage(flashMessageId, "Where do you live?",  showSafeMessage);
     }
 
     function init() {
@@ -304,6 +365,7 @@
             setUpScale(stateData);
             setupBarChart();
             draw(stateData, currentYear, currentSelection);
+            showAnimation();
         });
     }
 

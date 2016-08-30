@@ -50,8 +50,11 @@ for year in gunStats:
     maxKilled.append(gunStats[year][max(gunStats[year], key=lambda x: gunStats[year][x]['killed'])]['killed'])
 print "Killed", max(maxKilled)
 print "Wounded", max(maxWounded)
- 
+
 file = open("out.json", "w")
 file.write(json.dumps(gunStats))
 file.close()
 
+for state in gunStats["2013"]:
+    if gunStats["2013"][state]["killed"] == 0 and gunStats["2014"][state]["killed"] == 0 and gunStats["2015"][state]["killed"] and gunStats["2016"][state]["killed"] ==0 or ( gunStats["2013"][state]["wounded"] == 0 and gunStats["2014"][state]["wounded"] == 0 and gunStats["2015"][state]["wounded"] and gunStats["2016"][state]["wounded"] ==0):
+        print state

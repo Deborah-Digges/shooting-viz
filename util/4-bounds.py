@@ -31,5 +31,5 @@ print "Max wounded: {0}".format(wounded[max(wounded, key=lambda x: wounded[x])])
 print "Min wounded: {0}".format(wounded[min(wounded, key=lambda x: wounded[x])])
 
 
-#pp.pprint(killed)
-#pp.pprint(wounded)
+pp.pprint(killed)
+pp.pprint(wounded)
