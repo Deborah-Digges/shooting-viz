@@ -66,7 +66,7 @@ http://deborah-digges.github.io/shooting-viz/index.html
 - Not easy to compare values across states without bar chart
 - Incorrect heading
 - No Link to data source
-- Not easy ot find the state which has the highest or lowest crime rate for a given year
+- Not easy to find the state which has the highest or lowest crime rate for a given year
 
 ## Final Visualization
 ![Final Visualization](final.gif)
