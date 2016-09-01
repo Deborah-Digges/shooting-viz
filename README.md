@@ -1,15 +1,28 @@
 # shooting-viz
 
 ## Summary
-An infographic showing the impact of mass shootings in the US over the last 4 years. It uses the data from: http://www.shootingtracker.com
+An infographic showing the impact of mass shootings in the US over the last 4 years. It uses the data from: http://www.shootingtracker.com which shows the number of mass shootings over different states in the US from 2013 onwards. The data was downloaded and restructured to suit the indexing needs of the visualization. 
+
+## Data File
+The data file used by the visualization is `out.json` which has the following structure:
+
+```
+    year:
+        state: {
+                    "killed": <number>
+                    "wounded": <number>
+                }
+```
 
 ## Design
 
-It shows a chloropleth map of the US and allows a user to explore the number of people affected(killed/wounded) by mass shootings over 4 years. Hovering over a state shows the number in million affected in that state for the selection under consideration and also highlights a bar on an accompanying bar chart. The purpose of the bar chart is to show the rank of the selected state among all states for that year and selection. Hovering over a bar will show you the name of the state that corresponds with that bar. So, for example, it is easy to know which state has the lowest/highest crime rate for a given year
+The visualization shows a chloropleth map of the US and allows a user to explore the number of people affected(killed/wounded) by mass shootings over 4 years. Hovering over a state shows the number in million affected in that state for the selection under consideration and also highlights a bar on an accompanying bar chart. The purpose of the bar chart is to show the rank of the selected state among all states for that year and selection. Hovering over a bar will show you the name of the state that corresponds with that bar. So, for example, it is easy to know which state has the lowest/highest crime rate for a given year
 
 - A Chloropleth was chosen as the primary visualization as it easy to observe the values across states in it
 - A drop down selector was used for changing the value of the time variable as it is easy to see how values change over time
 - An accompanying bar chart shows a better comparison among states for a given year. This was chosen because difference in the length of bars is more perceivable than difference in hue of color.
+
+An introduction animation was included to highlight states with no mass shootings over the years and states with the highest number of mass shootings. This is done in the `Martine Glass` manner, starting off by guiding the user to see a particular aspect of the visualization and then allowing him to further explore on his/her own.
 
 ## See it here
 http://deborah-digges.github.io/shooting-viz/index.html
