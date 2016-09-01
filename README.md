@@ -22,7 +22,7 @@ The visualization shows a chloropleth map of the US and allows a user to explore
 - A drop down selector was used for changing the value of the time variable as it is easy to see how values change over time
 - An accompanying bar chart shows a better comparison among states for a given year. This was chosen because difference in the length of bars is more perceivable than difference in hue of color.
 
-An introduction animation was included to highlight states with no mass shootings over the years and states with the highest number of mass shootings. This is done in the `Martine Glass` manner, starting off by guiding the user to see a particular aspect of the visualization and then allowing him to further explore on his/her own.
+An introduction animation was included to highlight states with no mass shootings over the years and states with the highest number of mass shootings. This is done in the `Martini Glass` manner, starting off by guiding the user to see a particular aspect of the visualization and then allowing him to further explore on his/her own.
 
 ## See it here
 http://deborah-digges.github.io/shooting-viz/index.html
