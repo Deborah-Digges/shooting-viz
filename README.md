@@ -67,6 +67,7 @@ http://deborah-digges.github.io/shooting-viz/index.html
 - Incorrect heading
 - No Link to data source
 - Not easy to find the state which has the highest or lowest crime rate for a given year
+- No clear explanatory finding
 
 ## Final Visualization
 ![Final Visualization](final.gif)
