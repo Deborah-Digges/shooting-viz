@@ -104,11 +104,11 @@
     }
 
     .firebrick {
-        fill: firebrick;
+        fill: firebrick !important;
     }
 
     .cornflowerblue {
-        fill: cornflowerblue;
+        fill: cornflowerblue !important;
     }
     .zero { fill: #ffffff; background-color: #ffffff;}
     .q0-8 { fill: #efedf5; background-color: #efedf5;}

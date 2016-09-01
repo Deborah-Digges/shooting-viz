@@ -21,7 +21,7 @@
     */
     var currentYear = 2013;
     var text;
-    var currentSelection = KILLED;
+    var currentSelection = WOUNDED;
     var stateData;
     var barHeight;
     var margin = {top: 20, right: 30, bottom: 30, left: 40};
@@ -310,17 +310,16 @@
         
     }
 
-    function showHideStates(states, color, next) {
+    function showHideStates(states, newClass, next) {
         var safes = d3.selectAll(".state").filter(function(d) {return states.indexOf(d.id) != -1;});
-        var oldFill = safes.style("fill");
 
-        safes.transition()
+        safes.classed(newClass, true)
+            .transition()
             .duration(2000)
-            .style("fill", color)
             .each("end", function() {
-                safes.transition()
-                    .duration(3000)
-                    .style("fill", oldFill)
+                safes.classed(newClass, false)
+                    .transition()
+                    .duration(2000)
                     .each("end", next);
             });
             
