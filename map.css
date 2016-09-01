@@ -96,10 +96,19 @@
         position: absolute;
         margin-left: 50%;
         font-size: 100px;
+        font-family: 'Dancing Script', cursive;
     }
 
     #desc {
         text-align: center;
+    }
+
+    .firebrick {
+        fill: firebrick;
+    }
+
+    .cornflowerblue {
+        fill: cornflowerblue;
     }
     .zero { fill: #ffffff; background-color: #ffffff;}
     .q0-8 { fill: #efedf5; background-color: #efedf5;}
